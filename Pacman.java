@@ -1,5 +1,4 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
-import javax.swing.*;
 public class Pacman extends Actor
 {
     int dir = 0;
@@ -65,7 +64,7 @@ public class Pacman extends Actor
                 this.setLocation(5,18);
             }
 
-            if(this.getX() != checkX && this.getY() != checkY){
+            if(this.getX() != checkX || this.getY() != checkY){
                 animate();
             }
 
@@ -84,71 +83,54 @@ public class Pacman extends Actor
         Actor orange = getOneIntersectingObject(Orange.class);
         if(red != null){
             hitRed = true;
-            BigDot bigDot = getWorld().getObjects(BigDot.class).get(0);
-            if(bigDot.crazed == false){
+            if(!BigDot.crazed){
                 red.setLocation(18,15);
             }
         }
         if(pink != null){
             hitPink = true;
-            BigDot bigDot = getWorld().getObjects(BigDot.class).get(0);
-            if(bigDot.crazed == false){
+            if(!BigDot.crazed){
                 pink.setLocation(18,15);
             }
         }
         if(cyan != null){
             hitCyan = true;
-            BigDot bigDot = getWorld().getObjects(BigDot.class).get(0);
-            if(bigDot.crazed == false){
+            if(!BigDot.crazed){
                 cyan.setLocation(18,15);
             }
         }
         if(orange != null){
             hitOrange = true;
-            BigDot bigDot = getWorld().getObjects(BigDot.class).get(0);
-            if(bigDot.crazed == false){
+            if(!BigDot.crazed){
                 orange.setLocation(18,15);
             }
         }
-        if(hitRed == true){
-            BigDot bigDot = getWorld().getObjects(BigDot.class).get(0);
-            if(bigDot.crazed == true){
+        if(hitRed){
+            if(BigDot.crazed && red != null){
                 red.setImage("tile039.png");
             }
             death();
-            if(lives == 0){
-                gameOver();
-            }
         }
-        if(hitPink == true){
-            BigDot bigDot = getWorld().getObjects(BigDot.class).get(0);
-            if(bigDot.crazed == true){
+        if(hitPink){
+            if(BigDot.crazed && pink != null){
                 pink.setImage("tile039.png");
             }
             death();
-            if(lives == 0){
-                gameOver();
-            }
         }
-        if(hitCyan == true){
-            BigDot bigDot = getWorld().getObjects(BigDot.class).get(0);
-            if(bigDot.crazed == true){
+        if(hitCyan){
+            if(BigDot.crazed && cyan != null){
                 cyan.setImage("tile039.png");
             }
             death();
-            if(lives == 0){
-                gameOver();
-            }
         }
-        if(hitOrange == true){
-            BigDot bigDot = getWorld().getObjects(BigDot.class).get(0);
-            if(bigDot.crazed == true){
+        if(hitOrange){
+            if(BigDot.crazed && orange != null){
                 orange.setImage("tile039.png");
             }
             death();
-            if(lives == 0){
-                gameOver();
-            }
+        }
+        if(lives == 0){
+            gameOver();
         }
 
     }
@@ -178,45 +160,40 @@ public class Pacman extends Actor
 
     public void death()
     {
-        BigDot bigDot = getWorld().getObjects(BigDot.class).get(0);
-        Dot dot = getWorld().getObjects(Dot.class).get(0);
         Red red = getWorld().getObjects(Red.class).get(0);
         Pink pink = getWorld().getObjects(Pink.class).get(0);
         Cyan cyan = getWorld().getObjects(Cyan.class).get(0);
         Orange orange = getWorld().getObjects(Orange.class).get(0);
-        if(dying == false){
-            Greenfoot.delay(90);
-        }
         dying = true;
-        if(bigDot.crazed == true){
+        if(BigDot.crazed){
             ghostsEaten++;
             if(ghostsEaten == 1){
-                dot.score+=200;
+                Dot.score += 200;
             }
             else if(ghostsEaten == 2){
-                dot.score+=400;
+                Dot.score += 400;
             }
             else if(ghostsEaten == 3){
-                dot.score+=800;
+                Dot.score += 800;
             }
             else if(ghostsEaten == 4){
-                dot.score+=1600;
+                Dot.score += 1600;
             }
-            if(dot.score > dot.highScore){
-                dot.highScore = dot.score;
-                getWorld().showText(dot.highScore + "", 24, 2);
+            if(Dot.score > Dot.highScore){
+                Dot.highScore = Dot.score;
+                getWorld().showText(Dot.highScore + "", 24, 2);
             }
-            getWorld().showText(dot.score + "", 13, 2);
-            if(hitRed == true){
+            getWorld().showText(Dot.score + "", 13, 2);
+            if(hitRed){
                 red.setLocation(18,15);
             }
-            else if(hitPink == true){
+            else if(hitPink){
                 pink.setLocation(18,15);
             }
-            else if(hitCyan == true){
+            else if(hitCyan){
                 cyan.setLocation(18,15);
             }
-            else if(hitOrange == true){
+            else if(hitOrange){
                 orange.setLocation(18,15);
             }
             dying = false;
@@ -224,73 +201,69 @@ public class Pacman extends Actor
             hitPink = false;
             hitCyan = false;
             hitOrange = false;
+            return;
         }
-        else if(bigDot.crazed == false){
-            if(dying == true){
-                if(timer == 6){
-                    setImage("tile057.png");
-                }
-                if(timer == 12){
-                    setImage("tile058.png");
-                }
-                if(timer == 18){
-                    setImage("tile059.png");
-                }
-                if(timer == 24){
-                    setImage("tile060.png");
-                }
-                if(timer == 30){
-                    setImage("tile061.png");
-                }
-                if(timer == 36){
-                    setImage("tile062.png");
-                }
-                if(timer == 42){
-                    setImage("tile063.png");
-                }
-                if(timer == 48){
-                    setImage("tile064.png");
-                }
-                if(timer == 54){
-                    setImage("tile065.png");
-                }
-                if(timer == 60){
-                    setImage("tile066.png");
-                }
-                if(timer == 66){
-                    setImage("tile067.png");
-                }
-                if(timer == 72){
-                    setImage("tile068.png");
 
-                }
-                if(timer >= 73){
-                    Greenfoot.delay(90);
-                    lives--;
-                    this.setLocation(18,27);
-                    setImage("tile040.png");
-                    if(lives == 0){
-                        setImage("tile068.png");
-                    }
-                    Lives lives = getWorld().getObjects(Lives.class).get(0);
-                    getWorld().removeObject(lives);
-                    dying = false;
-                    hitRed = false;
-                    hitPink = false;
-                    hitCyan = false;
-                    hitOrange = false;
-                    dir = 0;
-                    timer = 0;
-                    Greenfoot.delay(20);
-                }
+        if(timer == 6){
+            setImage("tile057.png");
+        }
+        if(timer == 12){
+            setImage("tile058.png");
+        }
+        if(timer == 18){
+            setImage("tile059.png");
+        }
+        if(timer == 24){
+            setImage("tile060.png");
+        }
+        if(timer == 30){
+            setImage("tile061.png");
+        }
+        if(timer == 36){
+            setImage("tile062.png");
+        }
+        if(timer == 42){
+            setImage("tile063.png");
+        }
+        if(timer == 48){
+            setImage("tile064.png");
+        }
+        if(timer == 54){
+            setImage("tile065.png");
+        }
+        if(timer == 60){
+            setImage("tile066.png");
+        }
+        if(timer == 66){
+            setImage("tile067.png");
+        }
+        if(timer == 72){
+            setImage("tile068.png");
+        }
+        if(timer >= 73){
+            lives--;
+            this.setLocation(18,27);
+            setImage("tile040.png");
+            if(lives == 0){
+                setImage("tile068.png");
             }
+            if(!getWorld().getObjects(Lives.class).isEmpty()){
+                Lives life = getWorld().getObjects(Lives.class).get(0);
+                getWorld().removeObject(life);
+            }
+            dying = false;
+            hitRed = false;
+            hitPink = false;
+            hitCyan = false;
+            hitOrange = false;
+            dir = 0;
+            timer = 0;
         }
     }
 
     public void gameOver(){
-        Dot dot = getWorld().getObjects(Dot.class).get(0);
-        JOptionPane.showMessageDialog(new JFrame(), "Game Over. You got a score of " + dot.score + ".");
-        getWorld().removeObjects(getWorld().getObjects(null));
+        getWorld().showText("GAME OVER", 18, 18);
+        getWorld().showText("SCORE " + Dot.score, 18, 20);
         Greenfoot.stop();
     }
 }

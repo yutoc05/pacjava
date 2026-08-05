@@ -1,44 +1,47 @@
 
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
-
-/**
- * Write a description of class MyWorld here.
- * 
- * @author (your name) 
- * @version (a version number or a date)
- */
 public class MyWorld extends World
 {
+    private static int level = 1;
+    private static boolean loadingNextLevel = false;
+    private boolean levelComplete = false;
 
-    /**
-     * Constructor for objects of class MyWorld.
-     * 
-     */
     public MyWorld()
-    {    
-        // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
-        super(36, 38, 23); 
+    {
+        super(36, 38, 23);
+        if(!loadingNextLevel){
+            level = 1;
+            Dot.score = 0;
+            Dot.dotsEaten = 0;
+        }
         prepare();
+        loadingNextLevel = false;
     }
 
-    /**
-     * Prepare the world for the start of the program.
-     * That is: create the initial objects and add them to the world.
-     */
+    public void act()
+    {
+        if(!levelComplete && getObjects(Dot.class).isEmpty()){
+            levelComplete = true;
+            level++;
+            loadingNextLevel = true;
+            Greenfoot.setWorld(new MyWorld());
+        }
+    }
+
     private void prepare()
     {
         Greenfoot.setSpeed(50);
+        Dot.dotsEaten = 0;
+        BigDot.crazed = false;
         Board board = new Board();
         addObject(board,18,19);
         for(int i = 0; i < 11; i++){
             Dot dot = new Dot();
             addObject(dot,7 + i, 5);
-            dot.score = 0;
             showText("SCORE", 13, 1);
-            showText(dot.score + "", 13, 2);
+            showText(Dot.score + "", 13, 2);
             showText("HIGH SCORE", 24, 1);
-            showText(dot.highScore + "", 24, 2);
-            dot.dotsEaten = 0;
+            showText(Dot.highScore + "", 24, 2);
         }
         for(int i = 0; i < 11; i++){
             Dot dot = new Dot();
@@ -92,9 +95,9 @@ public class MyWorld extends World
             Dot dot = new Dot();
             addObject(dot,20 + i, 12);
         }
-        for(int i = 0; i < 5; i++){
+        for(int i = 0; i < 4; i++){
             Dot dot = new Dot();
-            addObject(dot,26 + i, 12);
+            addObject(dot,27 + i, 12);
         }
         for(int i = 0; i < 14; i++){
             Dot dot = new Dot();
@@ -128,14 +131,7 @@ public class MyWorld extends World
             Dot dot = new Dot();
             addObject(dot,31, 25  + i);
         }
-        for(int i = 0; i < 3; i++){
-            Dot dot = new Dot();
-            addObject(dot,20, 25  + i);
-        }
-        for(int i = 0; i < 3; i++){
-            Dot dot = new Dot();
-            addObject(dot,20, 25  + i);
-        }
+
         for(int i = 0; i < 3; i++){
             Dot dot = new Dot();
             addObject(dot,17, 25  + i);

@@ -11,19 +11,17 @@ public class Cyan extends Actor
     public void act() 
     {
         Pacman pm = getWorld().getObjects(Pacman.class).get(0);
-        BigDot bigDot = getWorld().getObjects(BigDot.class).get(0);
         if(pm.dying == false){
-            Dot dot = getWorld().getObjects(Dot.class).get(0);
             timer++;
             oldX = this.getX();
             oldY = this.getY();
-            if(started == false && dot.dotsEaten < 80){
+            if(started == false && Dot.dotsEaten < 80){
                 bounce();
             }
-            else if(started == false && dot.dotsEaten >= 80){
+            else if(started == false && Dot.dotsEaten >= 80){
                 start();
             }
-            else if (started == true && bigDot.crazed == false){
+            else if (started == true && BigDot.crazed == false){
                 if(dir == 1 && timer >= 6){  //up
                     this.setLocation(this.getX(), this.getY() - 1);
                     timer = 0;
@@ -56,7 +54,7 @@ public class Cyan extends Actor
                     setDir();
                 }
             }
-            else if(started == true && bigDot.crazed == true){
+            else if(started == true && BigDot.crazed == true){
                 if(dir == 1 && timer >= 9){  //up
                     this.setLocation(this.getX(), this.getY() - 1);
                     timer = 0;
@@ -133,7 +131,7 @@ public class Cyan extends Actor
                 setImage("tile008.png");
             }
         }
-        else if((this.getX() == 18 && this.getY() == 18) || (this.getX() == 18 && this.getY() == 17) || (this.getX() == 18 && this.getY() == 16) && timer >= 6){
+        else if(((this.getX() == 18 && this.getY() == 18) || (this.getX() == 18 && this.getY() == 17) || (this.getX() == 18 && this.getY() == 16)) && timer >= 6){
             this.setLocation(this.getX(), this.getY() - 1);
             timer = 0;
             setImage("tile014.png");

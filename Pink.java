@@ -12,23 +12,21 @@ public class Pink extends Actor
     public void act() 
     {
         Pacman pm = getWorld().getObjects(Pacman.class).get(0);
-        BigDot bigDot = getWorld().getObjects(BigDot.class).get(0);
         if(pm.dying == false){
-            Dot dot = getWorld().getObjects(Dot.class).get(0);
             timer++;
             oldX = this.getX();
             oldY = this.getY();
-            if(started == false && dot.dotsEaten < 30){
+            if(started == false && Dot.dotsEaten < 30){
                 bounce();
             }
-            else if(started == false && dot.dotsEaten >= 30){
+            else if(started == false && Dot.dotsEaten >= 30){
                 if (bounced == false){
                     bounced = true;
                     this.setLocation(18, 18);
                 }
                 start();
             }
-            else if (started == true && bigDot.crazed == false){
+            else if (started == true && BigDot.crazed == false){
 
                 if(dir == 1 && timer >= 6){  //up
                     this.setLocation(this.getX(), this.getY() - 1);
@@ -63,7 +61,7 @@ public class Pink extends Actor
                 }
 
             }
-            else if(started == true && bigDot.crazed == true){
+            else if(started == true && BigDot.crazed == true){
                 if(dir == 1 && timer >= 9){  //up
                     this.setLocation(this.getX(), this.getY() - 1);
                     timer = 0;

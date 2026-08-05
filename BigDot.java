@@ -7,13 +7,12 @@ public class BigDot extends Actor
     {
         Actor pm = getOneIntersectingObject(Pacman.class);
         if(pm != null){
-            Dot dot = getWorld().getObjects(Dot.class).get(0);
-            dot.score += 50;
-            if(dot.score > dot.highScore){
-                dot.highScore = dot.score;
-                getWorld().showText(dot.highScore + "", 24, 2);
+            Dot.score += 50;
+            if(Dot.score > Dot.highScore){
+                Dot.highScore = Dot.score;
+                getWorld().showText(Dot.highScore + "", 24, 2);
             }
-            getWorld().showText(dot.score + "", 13, 2);
+            getWorld().showText(Dot.score + "", 13, 2);
             Pacman pacman = getWorld().getObjects(Pacman.class).get(0);
             pacman.ghostsEaten = 0;
             crazed = true;

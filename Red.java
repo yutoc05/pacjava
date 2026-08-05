@@ -10,12 +10,11 @@ public class Red extends Actor
     public void act() 
     {
         Pacman pm = getWorld().getObjects(Pacman.class).get(0);
-        BigDot bigDot = getWorld().getObjects(BigDot.class).get(0);
         Pink pink = getWorld().getObjects(Pink.class).get(0);
         Cyan cyan = getWorld().getObjects(Cyan.class).get(0);
         Orange orange = getWorld().getObjects(Orange.class).get(0);
         timer++;
-        if(pm.dying == false && bigDot.crazed == false){
+        if(pm.dying == false && BigDot.crazed == false){
             oldX = this.getX();
             oldY = this.getY();
             if(dir == 1 && timer >= 6){  //up
@@ -50,7 +49,7 @@ public class Red extends Actor
                 setDir();
             }
         }
-        else if(pm.dying == false && bigDot.crazed == true){
+        else if(pm.dying == false && BigDot.crazed == true){
             crazeTimer++;
             oldX = this.getX();
             oldY = this.getY();
@@ -193,7 +192,7 @@ public class Red extends Actor
                 }
             }
             else if(crazeTimer == 335){
-                bigDot.crazed = false;
+                BigDot.crazed = false;
                 crazeTimer = 0;
             }
         }
